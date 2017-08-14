@@ -3,8 +3,8 @@ Constatly updates animes in the background, and notifies the user about new epis
 
 Features to add (from Priority):
 
-- notifications; ✔
-- anime banner instead of a button; 
+- notifications; ✔ (locate on bottom right of the screen, and add priority over some programs)
+- anime banner instead of a button; ✔
 - wishlist; ✔ (TODO: add interface for the user to add)
 - anime browsing with search functionality;
 
