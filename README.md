@@ -13,4 +13,3 @@ Features to add (from Priority):
 Known bugs:
 - Updated anime labels bugged;
 - Not responding when updating;
-- 2 White dots on top frame;
