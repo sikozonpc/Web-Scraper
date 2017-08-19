@@ -27,61 +27,32 @@ import notifications
 wishlist = ["Boruto"]
 
 
-class NotificationWindow(tk.Frame):
-    """ Notifcations window"""
-
-    def __init__(self, _anime, master = None):
-        super().__init__(master)
-        
-        self.grid(row=0,column=0)
-
-        # Set the notifications window on lower right
-        """
-        w  = 200  
-        screen_width = self.master.winfo_screenwidth()
-        screen_height = self.master.winfo_screenheight()
-        x = (screen_width/2) - (w/2)
-        y = (screen_height/2) - (w/2)
-        self.master.geometry(("%dx%d+%d+%d"% (w, w, x, y)))
-        """
-        self.master.resizable(False,False)
-
-        anime = _anime
-
-        self.create_window(anime)
-
-    def create_window(self, _anime):
-        
-        window = tk.Toplevel(self.master)
-        window.title("Notification %s"%(_anime))
-
-        notification = tk.Label(window, text="%s"%(_anime), padx = 20, pady= 20)
-        notification.grid(row=0,column=0)
-
-
 class Application(tk.Frame):
     """ Application main window"""
     
     def __init__(self, master = None):
         super().__init__(master)
+        self.master["bg"] = "black"
         self.grid(row=0, column=0)
         self.master.title("Anime Scrapper")
         self.master.resizable(False,False)
 
         #Status bar
-        self.frameStatus = tk.Frame(relief = tk.SUNKEN,borderwidth=5).grid(row=0,column= 1)
-        self.status = tk.Label(self.frameStatus, text = "",  bd = 1, fg="white", bg="black")
-        self.status.grid(row = 0,column=0, columnspan=30, rowspan=5)
-        self.status.rowconfigure(0, weight=1)
-        self.status.columnconfigure(0, weight=1)
-        self.status.grid(sticky="news")
+        self.frameStatus = tk.Frame(relief = tk.SUNKEN)
+        self.frameStatus.grid(row=1,column= 0)
+        self.status = tk.Label(self.frameStatus, text = "", fg="red", bg="black")
+        self.status.grid(row = 0,column=0)
 
         #Search field
-        self.frameSearch = tk.Frame().grid(row=0,column=1)
-        self.textSearch = tk.Label(self.frameSearch, text = "Search anime ",bg="black",fg = "white").grid(row=0,column=3, sticky="e")
-        self.searchField = tk.Entry(self.frameSearch).grid(row=0, column=4)
+        self.frameSearch = tk.Frame()
+        self.frameSearch.grid(row=1,column=1)
+        self.searchField = tk.Entry(self.frameSearch).grid(row=0, column=0)
         self.searchButton = tk.Button(self.frameSearch,text="SEARCH", command = lambda: self.searchAnime)
-        self.searchButton.grid(row=0, column=5, sticky="w")
+        self.searchButton.grid(row=0, column=1, sticky = "w")
+
+        #Animes interface frame
+        self.frameAnimes = tk.Frame(bg = "black")
+        self.frameAnimes.grid(row=2,column=0, sticky = "s")
         
         #Information to hide python presence
         self._headers = {}
@@ -97,7 +68,7 @@ class Application(tk.Frame):
         self.refresh()
         self.master.mainloop()
 
-    def showStatus(self, text, color="blue"):
+    def showStatus(self, text, color="black"):
         self.status["bg"]   = color
         self.status["text"] =  text
 
@@ -116,7 +87,6 @@ class Application(tk.Frame):
     def refresh(self):
 
         self.showStatus(text= "REFRESHING... EXPECT LAG")
-        print("a")
         
         self.last_anime = self.output[0]
 
@@ -161,13 +131,13 @@ class Application(tk.Frame):
 
         self.showImage()
 
-        # Shows a notification if there is a new anime on the list
+        #Shows a notification if there is a new anime on the list
         if (self.current_anime != self.last_anime):
             self.notification(self.current_anime)
 
         #Clear the status bar
-        print("b")
-        self.showStatus(text="...", color="black")
+
+        self.showStatus(text="Refresh Finished!")
 
 
         # This is a timer to keep repeting (time in miliseconds) 5mins for the release version
@@ -184,7 +154,6 @@ class Application(tk.Frame):
         return self.imagesURL[_index]
 
     def getImage(self, _url):
-        #url  = "https://d3ieicw58ybon5.cloudfront.net/full/u/d64566db23fc4454a80d1fd41606d2f1.jpg"
         url = _url
         # Get the URL based image from the Internet
         request = urllib.request.urlopen(url)
@@ -201,61 +170,60 @@ class Application(tk.Frame):
     def showImage(self):
         """Displays a interface for the user to interact with the more recent animes"""
 
-        for widget in self.winfo_children():
+        for widget in self.frameAnimes.winfo_children():
+            print(widget)
             widget.destroy()
 
         # Displaying images
-        self.label1 = tk.Button(image = self.image1 ,command = lambda: webbrowser.open(self.links[0]))
+        self.label1 = tk.Button(self.frameAnimes, image = self.image1 ,command = lambda: webbrowser.open(self.links[0]))
         self.label1.grid(row=1, column=0, padx= 5, pady=5 )
         #Label with the name of the anime
-        self.name1 = tk.Label(text ="",bg="black",fg="white")
+        self.name1 = tk.Label(self.frameAnimes, text ="",bg="black",fg="white")
         self.name1.grid(row=2, column=0)
         self.name1["text"] = self.search[0]
 
-        self.label2 = tk.Button(image = self.image2 ,command = lambda: webbrowser.open(self.links[1]))
+        self.label2 = tk.Button(self.frameAnimes, image = self.image2 ,command = lambda: webbrowser.open(self.links[1]))
         self.label2.grid(row=1, column=1, padx= 5, pady=5 )
-        self.name2 = tk.Label(text = "",bg="black",fg="white")
+        self.name2 = tk.Label(self.frameAnimes, text = "",bg="black",fg="white")
         self.name2.grid(row=2, column=1)
         self.name2["text"] = self.search[1]
 
-        self.label3 = tk.Button(image = self.image3 ,command = lambda: webbrowser.open(self.links[2]))
+        self.label3 = tk.Button(self.frameAnimes, image = self.image3 ,command = lambda: webbrowser.open(self.links[2]))
         self.label3.grid(row=1, column=2, padx= 5, pady=5 )
-        self.name3 = tk.Label(text ="",bg="black",fg="white")
+        self.name3 = tk.Label(self.frameAnimes, text ="",bg="black",fg="white")
         self.name3.grid(row=2, column=2)
         self.name3["text"] =  self.search[2]
 
-        self.label4 = tk.Button(image = self.image4 ,command = lambda: webbrowser.open(self.links[3]))
+        self.label4 = tk.Button(self.frameAnimes,image = self.image4 ,command = lambda: webbrowser.open(self.links[3]))
         self.label4.grid(row=1, column=3, padx= 5, pady=5 )
-        self.name4 = tk.Label(text = "",bg="black",fg="white")
+        self.name4 = tk.Label(self.frameAnimes, text = "",bg="black",fg="white")
         self.name4.grid(row=2, column=3)
         self.name4["text"] = self.search[3]
 
-        self.label5 = tk.Button(image = self.image5 ,command = lambda: webbrowser.open(self.links[4]))
+        self.label5 = tk.Button(self.frameAnimes, image = self.image5 ,command = lambda: webbrowser.open(self.links[4]))
         self.label5.grid(row=1, column=4, padx= 5, pady=5 )
-        self.name5 = tk.Label(text = self.search[4],bg="black",fg="white").grid(row=2, column=4)
+        self.name5 = tk.Label(self.frameAnimes, text = self.search[4],bg="black",fg="white").grid(row=2, column=4)
 
-
-    # Second row
-
-        self.label6 = tk.Button(image = self.image6 ,command = lambda: webbrowser.open(self.links[5]) )
+        # Second row
+        self.label6 = tk.Button(self.frameAnimes, image = self.image6 ,command = lambda: webbrowser.open(self.links[5]) )
         self.label6.grid(row=3, column=0, padx= 5, pady=5 )
-        self.name6 = tk.Label(text = self.search[5],bg="black",fg="white").grid(row=4, column=0)
+        self.name6 = tk.Label(self.frameAnimes, text = self.search[5],bg="black",fg="white").grid(row=4, column=0)
 
-        self.label7 = tk.Button(image = self.image7 ,command = lambda: webbrowser.open(self.links[6]))
+        self.label7 = tk.Button(self.frameAnimes, image = self.image7 ,command = lambda: webbrowser.open(self.links[6]))
         self.label7.grid(row=3, column=1, padx= 5, pady=5 )
-        self.name3 = tk.Label(text = self.search[6],bg="black",fg="white").grid(row=4, column=1)
+        self.name3 = tk.Label(self.frameAnimes, text = self.search[6],bg="black",fg="white").grid(row=4, column=1)
 
-        self.label8 = tk.Button(image = self.image8 ,command = lambda: webbrowser.open(self.links[7]))
+        self.label8 = tk.Button(self.frameAnimes, image = self.image8 ,command = lambda: webbrowser.open(self.links[7]))
         self.label8.grid(row=3, column=2, padx= 5, pady=5 )
-        self.name3 = tk.Label(text = self.search[7],bg="black",fg="white").grid(row=4, column=2)
+        self.name3 = tk.Label(self.frameAnimes,text = self.search[7],bg="black",fg="white").grid(row=4, column=2)
 
-        self.label9 = tk.Button(image = self.image9,command = lambda: webbrowser.open(self.links[8]))
+        self.label9 = tk.Button(self.frameAnimes, image = self.image9,command = lambda: webbrowser.open(self.links[8]))
         self.label9.grid(row=3, column=3, padx= 5, pady=5 )
-        self.name3 = tk.Label(text = self.search[8],bg="black",fg="white").grid(row=4, column=3)
+        self.name3 = tk.Label(self.frameAnimes, text = self.search[8],bg="black",fg="white").grid(row=4, column=3)
 
-        self.label10 = tk.Button(image = self.image10 ,command = lambda: webbrowser.open(self.links[9]))
+        self.label10 = tk.Button(self.frameAnimes, image = self.image10 ,command = lambda: webbrowser.open(self.links[9]))
         self.label10.grid(row=3, column=4, padx= 5, pady=5 )
-        self.name3 = tk.Label(text = self.search[9],bg="black",fg="white").grid(row=4, column=4)
+        self.name3 = tk.Label(self.frameAnimes, text = self.search[9],bg="black",fg="white").grid(row=4, column=4)
 
 
     def notification(self, _anime):
