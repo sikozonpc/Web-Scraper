@@ -23,8 +23,8 @@ import webbrowser
 #Local modules
 import notifications
 
-
-wishlist = ["Boruto"]
+#TODO 
+wishlist = []
 
 
 class Application(tk.Frame):
@@ -66,6 +66,7 @@ class Application(tk.Frame):
         
         #Start the program loop
         self.refresh()
+        self.refreshUI()
         self.master.mainloop()
 
     def showStatus(self, text, color="black"):
@@ -86,7 +87,7 @@ class Application(tk.Frame):
 
     def refresh(self):
 
-        self.showStatus(text= "REFRESHING... EXPECT LAG")
+        self.showStatus(text= "Nothing Intresting happening...")
         
         self.last_anime = self.output[0]
 
@@ -96,8 +97,17 @@ class Application(tk.Frame):
 
         print("Current anime: ",self.current_anime," last anime: ",self.last_anime)
 
-        #Status the user that is refreshing and may the UI
-        
+        #Shows a notification if there is a new anime on the list and updates the interface
+        if (self.current_anime != self.last_anime):
+            self.notification(self.current_anime)
+            #Only refreshes when a notifications happens 
+            self.refreshUI()
+
+        # This is a timer to keep repeting (time in miliseconds) 5mins for the release version
+        self.master.after(10000, self.refresh)
+
+    def refreshUI(self):
+        self.showStatus(text="Refreshing...")
         #Display thumbnails 
         imageUrl1 = self.getImagesUrl(0)
         self.image1 = self.getImage(imageUrl1)
@@ -131,18 +141,6 @@ class Application(tk.Frame):
 
         self.showImage()
 
-        #Shows a notification if there is a new anime on the list
-        if (self.current_anime != self.last_anime):
-            self.notification(self.current_anime)
-
-        #Clear the status bar
-
-        self.showStatus(text="Refresh Finished!")
-
-
-        # This is a timer to keep repeting (time in miliseconds) 5mins for the release version
-        self.master.after(10000, self.refresh)
-
     def getImagesUrl(self, _index):
 
         request = urllib.request.Request(self.url, headers = self._headers)
@@ -171,7 +169,6 @@ class Application(tk.Frame):
         """Displays a interface for the user to interact with the more recent animes"""
 
         for widget in self.frameAnimes.winfo_children():
-            print(widget)
             widget.destroy()
 
         # Displaying images
@@ -233,7 +230,6 @@ class Application(tk.Frame):
 
     def searchAnime(self):
         pass
-
 
 
 if __name__ == "__main__":
