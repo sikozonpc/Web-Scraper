@@ -1,5 +1,5 @@
 """
-Made by Tiago Tquelim 
+Made by Tiago Taquelim 
 sikozonbatata@gmail.com
 
 Searches for animes in www.9anime.to and returns the newly updated ones with
