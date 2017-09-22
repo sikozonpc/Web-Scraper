@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 ## Prerequisites
 
 What things you need to install the software and how to install them
-# NOTE: Haven't tested this software on linux or mac.
+### NOTE: Haven't tested this software on linux or mac.
 
 ```
 pip install pillow
@@ -25,5 +25,5 @@ and then unzip it and run in the folder console python setup.py install
 - Get data from diffrent websites, not only www.9anime.to;
 - Organize better the code;
 
-## Known bugs:
+### Known bugs:
 - Not responding when updating;
