@@ -1,7 +1,22 @@
 # Anime-Manager
 Constatly updates animes in the background, and notifies the user about new episodes.
 
-Features to add (from Priority):
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
+
+What things you need to install the software and how to install them
+
+```
+pip install pillow
+pip install io
+install pyler module from https://github.com/kivy/plyer , since pip install pyler has problems atleast for me
+and then unzip it and run in the folder console python setup.py install 
+```
+
+### Features to add (from Priority):
 
 - Notifications; ✔ (locate on bottom right of the screen, and add priority over some programs)
 - Anime banner instead of a button; ✔
@@ -11,5 +26,4 @@ Features to add (from Priority):
 - Organize better the code;
 
 Known bugs:
-- Updated anime labels bugged;
 - Not responding when updating;
