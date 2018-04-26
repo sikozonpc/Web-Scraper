@@ -1,14 +1,14 @@
-# Anime-Manager
-Constatly updates animes in the background, and notifies the user about new episodes.
+# Anime Web Manager
+Constatly scraps the web for new episodes (animes), and notifies the user about new episodes.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ## Prerequisites
 
 What things you need to install the software and how to install them
-### NOTE: Haven't tested this software on linux or mac.
+### NOTE: Haven't tested this software on Linux or Mac.
 
 ```
 pip install pillow
@@ -23,7 +23,7 @@ and then unzip it and run in the folder console python setup.py install
 - Wishlist; ✔ (TODO: add interface for the user to add)
 - Anime browsing with search functionality;
 - Get data from diffrent websites, not only www.9anime.to;
-- Organize better the code;
+- Organize better the code; (WIP)
 
 ### Known bugs:
 - Not responding when updating;
