@@ -1,5 +1,5 @@
 # Anime Web Manager
-Constatly scraps the web for new episodes (animes), and notifies the user about new episodes.
+Constatly scraps the web for new episodes (animes), and notifies the user about new episodes, with a built-in interface using Tkinter.
 
 ## Getting Started
 
