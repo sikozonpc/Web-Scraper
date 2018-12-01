@@ -26,4 +26,4 @@ and then unzip it and run in the folder console python setup.py install
 - Organize better the code; (WIP)
 
 ### Known bugs:
-- Not responding when updating;
+- Not responding when updating (needs to async);
