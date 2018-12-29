@@ -19,9 +19,9 @@ and then unzip it and run in the folder console python setup.py install
 ## Features to add (from Priority):
 
 - Notifications; ✔ (locate on bottom right of the screen, and add priority over some programs)
-- Anime banner instead of a button; ✔
+- Banner instead of a button; ✔
 - Wishlist; ✔ (TODO: add interface for the user to add)
-- Anime browsing with search functionality;
+- Video browsing with search functionality;
 - Get data from diffrent websites, not only www.9anime.to;
 - Organize better the code; (WIP)
 
