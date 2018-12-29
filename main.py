@@ -70,7 +70,6 @@ class Application(tk.Frame):
         self.frameAnimes = ttk.Frame()
         self.frameAnimes.grid(row=2,column=0, sticky = "s")
 
-        # Information to hide python presence
         self._headers = {}
         self._headers["User-Agent"] = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
         self.url = "https://9anime.to/updated"
